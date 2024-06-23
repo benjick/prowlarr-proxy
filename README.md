@@ -1,6 +1,6 @@
-# prowlarr-proxy
+# 🦊 prowlarr-proxy
 
-### Remove or replace Prowlarrs suffix from indexer name: ` (Prowlarr)`
+### ✂️ Remove or replace Prowlarrs suffix from indexer name - ` (Prowlarr)`
 
 Before:
 
@@ -10,16 +10,32 @@ After (with emoji suffix):
 
 ![After image](./.github/images/after.png)
 
-## Running:
+## 🚀 Running
+
+1. Start the application
 
 ```sh
 docker run -p 3000:3000 -v $(pwd)/config:/config -it ghcr.io/benjick/prowlarr-proxy:latest
 ```
 
-Edit `./config/config.yml` with your desired values
+2. Edit `./config/config.yml` with your desired values
 
-Finally update your Application in Prowlarr to use the proxy:
+> 🖐️ The app only reads the configuration file at startup, so restart the server after making any changes.
+
+3. Update your Application in Prowlarr to use the proxy:
 
 ![Prowlarr settings](./.github/images/prowlarr.png)
 
-Press "Sync App Indexers" to update the indexers
+4. Press "🔄 Sync App Indexers" in Prowlarr to update the indexers
+
+### 🐳 `docker-compose.yml`
+
+```yml
+services:
+  prowlarr-proxy:
+    image: ghcr.io/benjick/prowlarr-proxy:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - ./config:/config
+```
