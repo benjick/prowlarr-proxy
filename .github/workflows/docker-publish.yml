@@ -1,7 +1,12 @@
-name: Publish new :latest image
+name: Docker Publish
 
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag for the Docker image"
+        required: true
+        default: "latest"
 
 jobs:
   build:
@@ -21,7 +26,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ github.repository }}:latest .
+        run: docker build -t ghcr.io/${{ github.repository }}:${{ github.event.inputs.tag }} .
 
       - name: Push Docker image
-        run: docker push ghcr.io/${{ github.repository }}:latest
+        run: docker push ghcr.io/${{ github.repository }}:${{ github.event.inputs.tag }}
